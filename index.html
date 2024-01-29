@@ -212,38 +212,35 @@
           <div class="resume-section-content">
             <h2 class="mb-5">contact</h2>
             <form id="contactForm">
-              <label for="name">Nama:</label>
-              <input type="text" id="name" required>
-              
+              <label for="name">Name:</label>
+              <input type="text" id="name" name="name" required>
+          
               <label for="email">Email:</label>
-              <input type="email" id="email" required>
-              
-              <label for="message">Pesan:</label>
-              <textarea id="message" required></textarea>
-              
-              <button type="button" onclick="submitForm()">Kirim Pesan</button>
-          </form>
-      
-          <div id="contact-info"></div>
-      
-          <script>
-              function submitForm() {
-                  var name = document.getElementById('name').value;
-                  var email = document.getElementById('email').value;
-                  var message = document.getElementById('message').value;
-      
-                  var contactInfo = document.getElementById('contact-info');
-                  contactInfo.innerHTML = '<strong>Nama:</strong> ' + name + '<br>' +
-                                          '<strong>Email:</strong> ' + email + '<br>' +
-                                          '<strong>Pesan:</strong> ' + message;
-      
-                  // Simulasi pengiriman data ke server (dalam kasus nyata, Anda akan menggunakan AJAX atau fetch ke backend)
-                  alert('Pesan telah terkirim!');
-      
-                  // Bersihkan formulir setelah mengirim pesan
-                  document.getElementById('contactForm').reset();
+              <input type="email" id="email" name="email" required>
+          
+              <label for="message">Message:</label>
+              <textarea id="message" name="message" rows="2" required></textarea>
+          
+              <button type="button" onclick="sendEmail()">Submit</button>
+            </form>
+          
+            <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+            <script>
+              emailjs.init("freefireakun868@gmail.com"); // Ganti dengan ID Pengguna Email.js Anda
+          
+              function sendEmail() {
+                const form = document.getElementById("contactForm");
+          
+                emailjs.sendForm("service_your_emailjs_service_id", "template_your_emailjs_template_id", form)
+                  .then((response) => {
+                    console.log("Email sent successfully:", response);
+                    alert("Pesan Anda telah berhasil dikirim!");
+                  }, (error) => {
+                    console.error("Failed to send email:", error);
+                    alert("Gagal mengirim email. Silakan coba lagi nanti.");
+                  });
               }
-          </script>
+            </script>
     </body>
             </li>
           </ul>
